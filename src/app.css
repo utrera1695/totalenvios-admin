@@ -1,0 +1,81 @@
+@import '~@glidejs/glide/dist/css/glide.core.min.css';
+@import '~@glidejs/glide/dist/css/glide.theme.min.css';
+@import '~antd/dist/antd.css';
+
+.card .card-header h5:after {
+  content: '';
+  background-color: #ccdd46;
+  position: absolute;
+  left: -25px;
+  top: 0;
+  width: 4px;
+  height: 20px;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #005574 !important;
+  border-color: #005574 !important;
+  box-shadow: none !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  color: #fff;
+  background-color: #00394e !important;
+  border-color: #00394e !important;
+}
+
+.auth-wrapper .auth-bg .r:first-child {
+  top: -100px;
+  right: -100px;
+  background: linear-gradient(-135deg, #1fdc5f 0%, #1f8f45 100%);
+}
+
+.auth-wrapper .auth-bg .r:last-child {
+  left: -100px;
+  bottom: -100px;
+  background: linear-gradient(-135deg, #116cc7 0%, #0a4785 100%);
+}
+
+.auth-wrapper .auth-bg .r.s:nth-child(2) {
+  top: 150px;
+  right: -150px;
+  background: #ccdd46;
+}
+
+.auth-wrapper .auth-bg .r.s:nth-child(3) {
+  left: -150px;
+  bottom: 150px;
+  background: #ccdd46;
+}
+
+.table td,
+.table th {
+  border-top: 1px solid #eaeaea;
+  white-space: nowrap;
+  padding: 1.05rem 0.75rem;
+  white-space: normal;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+.pagination li {
+  padding: 0 10px;
+  font-weight: 800;
+}
+
+.pagination li a {
+  color: #355577;
+}
+
+.pagination li.disabled a {
+  color: #b9b9b9 !important;
+  cursor: default;
+}
+
+.pagination li.active a {
+  color: #007bff;
+}
