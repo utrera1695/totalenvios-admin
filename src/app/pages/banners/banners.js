@@ -3,9 +3,9 @@ import BannerService from '../../../services/banner.service';
 import Swal from 'sweetalert2';
 import { connect } from 'react-redux';
 import Pagination from 'react-js-pagination';
-import Resizer from 'react-image-file-resizer';
 
 import svg from '../../../assets/three-dots.svg';
+import global from '../../../services/global';
 class Banners extends Component {
   constructor(props) {
     super(props);
@@ -22,7 +22,7 @@ class Banners extends Component {
     this.saveBanner = this.saveBanner.bind(this);
     this.deleteBanner = this.deleteBanner.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
-    this.fileChangedHandler = this.fileChangedHandler.bind(this);
+    this.handleInputFileChange = this.handleInputFileChange.bind(this);
     this.close = this.close.bind(this);
   }
 
@@ -32,26 +32,26 @@ class Banners extends Component {
   async saveBanner() {
     this.setState({ show: true });
     if (this.state.files !== '') {
-      let image = await BannerService.SaveImages({
+      await BannerService.SaveImages({
         image: this.state.files,
         type: 'S'
+      }).then(response => {
+        if (response.data) {
+          var slider = this.state.slider;
+          slider.push(response.data);
+          this.setState({
+            files: '',
+            slider: slider,
+            show: false
+          });
+          Swal.fire({
+            type: 'success',
+            title: 'Imagen Agregado',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
       });
-      if (image.data) {
-        console.log(image.data);
-        var slider = this.state.slider;
-        slider.push(image.data);
-        this.setState({
-          files: '',
-          slider: slider,
-          show: false
-        });
-        Swal.fire({
-          type: 'success',
-          title: 'Imagen Agregado',
-          showConfirmButton: false,
-          timer: 1500
-        });
-      }
     } else {
       Swal.fire({
         type: 'warning',
@@ -61,7 +61,16 @@ class Banners extends Component {
       });
     }
   }
-
+  handleInputFileChange(e) {
+    const formData = new FormData();
+    console.log(e.target.files[0]);
+    formData.append('image', e.target.files[0]);
+    BannerService.UploadPic(formData).then(response =>
+      this.setState({
+        files: global.URL + '/images/files/' + response.data
+      })
+    );
+  }
   async getBanners() {
     var banners = await BannerService.GetSlider();
     this.setState({ slider: banners.data });
@@ -86,27 +95,6 @@ class Banners extends Component {
       });
     }
   }
-  fileChangedHandler(event) {
-    var fileInput = false;
-    if (event.target.files[0]) {
-      fileInput = true;
-    }
-    if (fileInput) {
-      Resizer.imageFileResizer(
-        event.target.files[0],
-        300,
-        300,
-        'JPEG',
-        100,
-        0,
-        uri => {
-          console.log(uri);
-          this.setState({ files: uri });
-        },
-        'base64'
-      );
-    }
-  }
 
   close() {
     this.setState({ files: '' });
@@ -124,7 +112,11 @@ class Banners extends Component {
                 <div
                   className='col-12'
                   style={{ display: 'flex', flexFlow: 'column' }}>
-                  <input type='file' onChange={this.fileChangedHandler} />
+                  <input
+                    type='file'
+                    className='form-control'
+                    onChange={this.handleInputFileChange}
+                  />
                   {this.state.files !== '' ? (
                     <img
                       style={{ width: '300px', margin: '10px auto' }}

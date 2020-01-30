@@ -41,9 +41,24 @@ const DeleteImages = async id => {
   }
 };
 
+function UploadPic(file) {
+  try {
+    return axios({
+      method: 'post',
+      url: URL + '/images/upload',
+      data: file,
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
 export default {
   DeleteImages,
   SaveImages,
   GetSlider,
-  GetPromotions
+  GetPromotions,
+  UploadPic
 };
