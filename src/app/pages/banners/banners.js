@@ -13,6 +13,7 @@ class Banners extends Component {
       slider: [],
       files: '',
       show: false,
+      show2: false,
       indexInitial: 0,
       indexLast: 5,
       activePage: 1,
@@ -63,11 +64,13 @@ class Banners extends Component {
   }
   handleInputFileChange(e) {
     const formData = new FormData();
+    this.setState({ show2: true });
     console.log(e.target.files[0]);
     formData.append('image', e.target.files[0]);
     BannerService.UploadPic(formData).then(response =>
       this.setState({
-        files: global.URL + '/images/files/' + response.data
+        files: global.URL + '/images/files/' + response.data,
+        show2: false
       })
     );
   }
@@ -123,6 +126,19 @@ class Banners extends Component {
                       src={this.state.files}
                       alt='imagen'
                     />
+                  ) : this.state.show2 ? (
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                      }}>
+                      <img
+                        style={{ width: '30px', marginRight: '5px' }}
+                        src={svg}
+                        alt='loader'></img>{' '}
+                      Cargando imagen
+                    </div>
                   ) : null}
                 </div>
               </div>
