@@ -11,13 +11,13 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div className='App'>
-          <Router>
+          <Router basename='/app/admin-panel'>
             {/* <div className="loader-bg">
 						<div className="loader-track">
 							<div className="loader-fill"></div>
 						</div>
 					</div> */}
-            <Route exact path='/panel' component={Pages} />
+            <Route exact path='/home' component={Pages} />
             {/* {localStorage.getItem('token') ? (
 							<Route exact path="/panel" component={Pages} />
 						) : (

@@ -8,14 +8,14 @@ const headers = {
 
 const GetPromotions = async () => {
   try {
-    return await axios.get(URL + '/images/promotion');
+    return await axios.get(URL + '/image?type=P');
   } catch (error) {
     console.log(error);
   }
 };
 const GetSlider = async () => {
   try {
-    return await axios.get(URL + '/images/slider');
+    return await axios.get(URL + '/image?type=S');
   } catch (error) {
     console.log(error);
   }
@@ -23,7 +23,7 @@ const GetSlider = async () => {
 
 const SaveImages = async data => {
   try {
-    return await axios.post(URL + '/images', data, {
+    return await axios.post(URL + '/image', data, {
       headers
     });
   } catch (error) {
@@ -33,7 +33,7 @@ const SaveImages = async data => {
 
 const DeleteImages = async id => {
   try {
-    return await axios.delete(URL + '/images?id=' + id, {
+    return await axios.delete(URL + '/image?id=' + id, {
       headers
     });
   } catch (error) {
@@ -45,7 +45,7 @@ function UploadPic(file) {
   try {
     return axios({
       method: 'post',
-      url: URL + '/images/upload',
+      url: URL + '/upload',
       data: file,
       headers: {
         'content-type': 'multipart/form-data'
