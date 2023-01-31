@@ -17,7 +17,7 @@ class App extends Component {
 							<div className="loader-fill"></div>
 						</div>
 					</div> */}
-            <Route exact path='/home' component={Pages} />
+            <Route exact path='/' component={Pages} />
             {/* {localStorage.getItem('token') ? (
 							<Route exact path="/panel" component={Pages} />
 						) : (
