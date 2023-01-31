@@ -1,5 +1,6 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+### change api url in `src/services/global.js` to connect to ApiRest
 ### build project, upload to the server directory
 
 ## Available Scripts
